@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap ЕСМ | Единый контактный центр</title>
+    <meta name="description" content="Интерактивная дорожная карта запуска и развития Единой сервисной модели">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <header class="topbar">
+        <a class="brand" href="#overview" aria-label="Солид">
+            <img src="solidbroker-logo.svg" alt="Солид">
+        </a>
+        <nav class="topnav" aria-label="Разделы roadmap">
+            <a href="#overview">Обзор</a>
+            <a href="#gantt">Roadmap</a>
+            <a href="#phases">Этапы</a>
+        </nav>
+        <a class="source-link" href="../RoadMapESM.md" target="_blank" rel="noopener">Источник MD</a>
+    </header>
+
+    <main>
+        <section id="overview" class="hero section-band">
+            <div class="hero__copy reveal">
+                <p class="section-label">ЕСМ / Единый контактный центр</p>
+                <h1>Roadmap запуска и развития сервисной модели</h1>
+                <p class="hero__lead">
+                    План переводит клиентские обращения в единый управляемый контур: от быстрого запуска на текущей
+                    инфраструктуре до CRM-автоматизации, SLA, BI и расширенного VIP-сервиса.
+                </p>
+                <div class="hero__actions" aria-label="Быстрые действия">
+                    <a class="button button--primary" href="#gantt">Открыть карту</a>
+                    <button class="button button--quiet" type="button" data-expand-all>Раскрыть все этапы</button>
+                </div>
+            </div>
+
+            <div class="hero__metrics reveal reveal--late" data-phase-summary></div>
+        </section>
+
+        <section id="gantt" class="workspace section-band" aria-labelledby="gantt-title">
+            <div class="workspace__head reveal">
+                <div>
+                    <p class="section-label">Апрель 2026 - март 2027</p>
+                    <h2 id="gantt-title">Интерактивная дорожная карта</h2>
+                </div>
+                <div class="toolbar" aria-label="Управление roadmap">
+                    <button class="tool-button is-active" type="button" data-filter="all">Все</button>
+                    <button class="tool-button" type="button" data-filter="launch">Запуск</button>
+                    <button class="tool-button" type="button" data-filter="automation">Автоматизация</button>
+                    <button class="tool-button" type="button" data-filter="improvement">Совершенствование</button>
+                </div>
+            </div>
+
+            <div class="gantt-shell reveal">
+                <div class="gantt-board" aria-label="Gantt roadmap ЕСМ">
+                    <div class="gantt-toolbar">
+                        <div class="legend" aria-label="Легенда">
+                            <span><i class="legend-dot legend-dot--launch"></i>Запуск</span>
+                            <span><i class="legend-dot legend-dot--automation"></i>Развитие и автоматизация</span>
+                            <span><i class="legend-dot legend-dot--improvement"></i>Совершенствование</span>
+                            <span><i class="milestone-swatch"></i>Веха</span>
+                        </div>
+                        <div class="board-actions">
+                            <button class="icon-button icon-button--wide" type="button" data-reset-view>Сброс</button>
+                        </div>
+                    </div>
+
+                    <div class="timeline-wrap">
+                        <div class="timeline" data-timeline></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="phases" class="phase-section section-band" aria-labelledby="phases-title">
+            <div class="section-heading reveal">
+                <p class="section-label">Детализация</p>
+                <h2 id="phases-title">Этапы roadmap</h2>
+                <p>Каждый блок раскрывает цели, скоуп, ожидаемые результаты и состав работ.</p>
+            </div>
+            <div class="phase-accordions reveal" data-phase-accordions></div>
+        </section>
+    </main>
+
+    <div class="modal" data-modal aria-hidden="true">
+        <div class="modal__backdrop" data-modal-close></div>
+        <article class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal__close" type="button" data-modal-close aria-label="Закрыть">×</button>
+            <div data-modal-content></div>
+        </article>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
