@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мобильное приложение Солид-инвестиции</title>
+    <meta name="description"
+        content="Одностраничный обзор стратегии мобильного приложения ЦФ для генерального директора">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css?v=20260609-12">
+</head>
+
+<body>
+    <div class="scroll-progress" aria-hidden="true">
+        <span></span>
+    </div>
+
+    <header class="topbar">
+        <a class="brand" href="#intro" aria-label="Солид Инвестиции">
+            <img src="solidbroker-logo.svg" alt="Солид Инвестиции">
+        </a>
+        <nav class="topnav" aria-label="Оглавление лендинга">
+            <a href="#intro">Контекст</a>
+            <a href="#foundation">Основания</a>
+            <a href="#requirements-status">Статус</a>
+            <a href="#roadmap">Роудмеп</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro" class="hero section-band">
+            <div class="hero__copy reveal">
+                <h1>Мобильное приложение для HNWI-клиента</h1>
+                <p class="hero__lead">
+                    Строим не брокерский терминал, а цифровой офис для продаж, обзора и управления активами клиента:
+                    полный портфель, адресные предложения, сделки, документы и сервисные операции в одном приложении.
+                </p>
+                <div class="hero__actions" aria-label="Ключевые переходы">
+                    <a class="button button--primary" href="#foundation">На чем строится приложение</a>
+                    <a class="button button--quiet" href="#roadmap">Дорожная карта</a>
+                </div>
+            </div>
+
+            <div class="hero__visual reveal reveal--late" aria-label="Мобильное приложение как цифровой офис клиента">
+                <figure class="hero-device">
+                    <img src="hero-mobile-app.png" width="900" height="1125"
+                        alt="Макет главного экрана мобильного приложения Солид Инвестиции" fetchpriority="high"
+                        decoding="async">
+                </figure>
+            </div>
+        </section>
+
+        <section id="foundation" class="foundation section-band" aria-labelledby="foundation-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Стратегическая рамка</p>
+                <h2 id="foundation-title"> Основные акценты и фокусы приложения Солид Инвестиции</h2>
+                <p>
+                    Детали раскрываются по клику
+                </p>
+            </div>
+
+            <div class="thesis-grid reveal" aria-label="Ключевые основания мобильной стратегии">
+                <article class="thesis thesis--wealth">
+                    <span>01</span>
+                    <h3>Полная картина активов</h3>
+                    <p class="thesis__angle">Не терминал для акций, а цифровое зеркало состояния.</p>
+                    <p>
+                        Клиент видит весь состав активов, включая неберживые. Каждая оценка по возможности маркируется
+                        по
+                        источнику и актуальности.
+                    </p>
+                    <details class="fold">
+                        <summary>
+                            <span class="fold__action" data-open="Раскрыть детали"
+                                data-closed="Раскрыть детали">Раскрыть детали</span>
+                        </summary>
+                        <div class="fold__body">
+                            <ul>
+                                <li>Единая продуктовая витрина: биржевые инструменты, структурные продукты, ДУ, IPO/IBO
+                                    и OTC-предложения.</li>
+                                <li>Честная маркировка данных: real-time, delayed, индикативно, модельная оценка или
+                                    цена по запросу.</li>
+                                <li>Агрегированная позиция по всем договорам: БС, ИИС, ДУ с раскрытием до договора.
+                                </li>
+                                <li>Для неликвидных и OTC-продуктов не имитируем биржу: показываем историю оценок,
+                                    условия, срок действия и связь с брокером.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </article>
+
+                <article class="thesis thesis--distribution">
+                    <span>02</span>
+                    <h3>Канал дистрибуции</h3>
+                    <p class="thesis__angle">Не каталог с кнопкой «Купить», а цифровой путь от знакомства с продуктом до
+                        сделки.</p>
+                    <p>
+                        Приложение получит набор инструментов для продаж и марктеирования. Появится возможность
+                        оформления сложных продуктов в цифровом канале.
+                    </p>
+                    <details class="fold">
+                        <summary>
+                            <span class="fold__action" data-open="Раскрыть детали"
+                                data-closed="Раскрыть детали">Раскрыть детали</span>
+                        </summary>
+                        <div class="fold__body">
+                            <ul>
+                                <li>Инструменты коммуникаций и продаж: Stories, баннеры, подборки и инвест-идеи
+                                    становятся входами в управляемую воронку.
+                                </li>
+                                <li>Диджитализируем оформление сложных продуктов.</li>
+                                <li>Рекомендации завязаны на профиль клиента, портфель, риск-статус и историю.</li>
+                                <li>Закладывается база для фокус-групп, клиентских списков и будущей CRM-аналитики.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </article>
+
+                <article class="thesis thesis--office">
+                    <span>03</span>
+                    <h3>Цифровой офис</h3>
+                    <p class="thesis__angle">Не торговля в кармане, а полный сервисный цикл в приложении.</p>
+                    <p>
+                        Клиент самостоятельно закрывает сервисные потребности, а операционный блок получает меньше
+                        ручных обращений.
+                    </p>
+                    <details class="fold">
+                        <summary>
+                            <span class="fold__action" data-open="Раскрыть детали"
+                                data-closed="Раскрыть детали">Раскрыть детали</span>
+                        </summary>
+                        <div class="fold__body">
+                            <ul>
+                                <li>Поручения в том же приложении, вывод средств, актуализация анкеты и тестирование без
+                                    визита и
+                                    бумажных форм там где это возможно.</li>
+                                <li>Единая сервисная модель интегрируется с приложением: клиент получает понятный
+                                    цифровой вход в сервисные вопросы, видит статус обращения, а типовые потребности
+                                    закрываются быстрее и с меньшим количеством ручных уточнений.</li>
+                                <li>Электронное досье: договоры, отчеты, налоговые справки, операции, выплаты и
+                                    корпоративные события.</li>
+                                <li>Операционный эффект: меньше звонков и обращений при росте клиентской базы. Снижение
+                                    накгрузки на операционное подразделение.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </article>
+            </div>
+        </section>
+
+        <section id="requirements-status" class="requirements-status section-band"
+            aria-labelledby="requirements-status-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Статус проработки требований</p>
+                <h2 id="requirements-status-title">Бизнес-требования сформированы, идёт GAP-Анализ и оценка ИТ.
+                </h2>
+                <p>
+                    По мере уточнения требований переопределяется скоуп MVP, а оценка ИТ идет параллельно с
+                    детализацией.
+                </p>
+            </div>
+
+            <div class="status-board reveal" aria-label="Статус проработки требований">
+                <article class="status-card status-card--complete" style="--progress: 100%;">
+                    <div class="status-card__head">
+                        <span>BRD</span>
+                        <strong>100%</strong>
+                    </div>
+                    <div class="status-meter" aria-hidden="true"><span></span></div>
+                    <p>Базовый контур требований зафиксирован. По ходу системного анализа требования уточняются и
+                        детализируются; скоуп MVP переопределяется.</p>
+                </article>
+
+                <article class="status-card" style="--progress: 47%;">
+                    <div class="status-card__head">
+                        <span>ИТ GAP анализ </span>
+                        <strong>47%</strong>
+                    </div>
+                    <div class="status-meter" aria-hidden="true"><span></span></div>
+                    <p>Выполнено 47%. Оценка обновляется по мере уточнения требований и границ MVP.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="roadmap" class="roadmap section-band" aria-labelledby="roadmap-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Дорожная карта</p>
+                <h2 id="roadmap-title">Ключевые контрольные точки до MVP и развития приложения.</h2>
+                <p>
+                    Роудмеп показывает последовательность решений: сначала фиксация подхода, затем запуск MVP и
+                    дальнейшее развитие функционала.
+                </p>
+            </div>
+
+            <div class="roadmap-board reveal">
+                <div class="roadmap-track" role="tablist" aria-label="Дорожная карта проекта">
+                    <button class="roadmap-step is-active" type="button" role="tab" aria-selected="true"
+                        data-roadmap-step="prep">
+                        <span>До старта</span>
+                        <strong>Подготовка</strong>
+                        <em>31.05-15.07.2026</em>
+                    </button>
+                    <button class="roadmap-step" type="button" role="tab" aria-selected="false" data-roadmap-step="box">
+                        <span>Если коробка</span>
+                        <strong>Вендор и команда</strong>
+                        <em>15.07-01.10.2026</em>
+                    </button>
+                    <button class="roadmap-step" type="button" role="tab" aria-selected="false" data-roadmap-step="mvp">
+                        <span>Этап 1</span>
+                        <strong>MVP</strong>
+                        <em>01.08.2026-01.05.2027</em>
+                    </button>
+                    <button class="roadmap-step" type="button" role="tab" aria-selected="false"
+                        data-roadmap-step="growth">
+                        <span>Этап 2</span>
+                        <strong>Развитие функционала</strong>
+                        <em>01.05.2027+</em>
+                    </button>
+                </div>
+
+                <article class="roadmap-detail" aria-live="polite">
+                    <div>
+                        <p class="roadmap-detail__label" data-roadmap-label>До старта</p>
+                        <h3 data-roadmap-title>Подготовка</h3>
+                        <p data-roadmap-summary></p>
+                    </div>
+                    <ol class="roadmap-items" data-roadmap-items></ol>
+                </article>
+
+                <div class="roadmap-gantt" aria-label="Альтернативная Gantt-визуализация дорожной карты">
+                    <div class="roadmap-gantt__head">
+                        <div>
+                            <span>Альтернативный вид</span>
+                            <strong>Наложение этапов</strong>
+                        </div>
+                        <p>Горизонтальные полосы показывают, какие работы идут параллельно.</p>
+                    </div>
+
+                    <div class="gantt-milestones" aria-label="Ключевые даты дорожной карты">
+                        <i class="gantt-flag" style="--left: 4%; --tier: 0;">
+                            <strong>31.05</strong>
+                            <span>2026 · BRD</span>
+                        </i>
+                        <i class="gantt-flag" style="--left: 12%; --tier: 1;">
+                            <strong>30.06</strong>
+                            <span>2026 · GAP</span>
+                        </i>
+                        <i class="gantt-flag gantt-flag--accent" style="--left: 17%; --tier: 0;">
+                            <strong>15.07</strong>
+                            <span>2026 · Комитет</span>
+                        </i>
+                        <i class="gantt-flag" style="--left: 23%; --tier: 1;">
+                            <strong>01.08</strong>
+                            <span>2026 · Старт</span>
+                        </i>
+                        <i class="gantt-flag" style="--left: 54%; --tier: 0;">
+                            <strong>01.02</strong>
+                            <span>2027 · F&F</span>
+                        </i>
+                        <i class="gantt-flag gantt-flag--accent" style="--left: 69%; --tier: 0;">
+                            <strong>01.05</strong>
+                            <span>2027 · MVP клиентам</span>
+                        </i>
+                    </div>
+
+                    <div class="gantt-rows">
+                        <div class="gantt-row">
+                            <span>BRD / GAP / выбор варианта</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--prep" style="--left: 0%; --width: 6%;">BRD</i>
+                                <i class="gantt-bar gantt-bar--prep" style="--left: 0%; --width: 12%;">GAP</i>
+                                <i class="gantt-date gantt-date--accent" style="--left: 17%;">15.07.2026</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Вендор, план, договор</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--vendor"
+                                    style="--left: 17%; --width: 12%;">15.07-15.08</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Закрытие вакансий</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--team" style="--left: 23%; --width: 14%;">01.08-01.10</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Разработка MVP</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--mvp" style="--left: 23%; --width: 31%;">01.08-01.02</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Friends and Family</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--pilot" style="--left: 54%; --width: 15%;">01.02-01.05</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Вывод MVP на клиентов</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-marker" style="--left: 69%;" aria-label="01.05.2027"></i>
+                                <i class="gantt-date gantt-date--accent" style="--left: 69%;">01.05.2027</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Функционал совместно с вендором</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--growth"
+                                    style="--left: 69%; --width: 31%;">01.05.2027-01.08.2028</i>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <span>Функционал своей командой</span>
+                            <div class="gantt-lane">
+                                <i class="gantt-bar gantt-bar--own" style="--left: 69%; --width: 31%;">с 01.05.2027</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gantt-overview" aria-label="Общий таймлайн дорожной карты">
+                        <span class="gantt-overview__segment" style="--left: 0%; --width: 37%;">
+                            <strong>2026</strong>
+                            <em>подготовка, вендор, старт MVP</em>
+                        </span>
+                        <span class="gantt-overview__segment" style="--left: 37%; --width: 32%;">
+                            <strong>2027</strong>
+                            <em>MVP, пилот, выход клиентам</em>
+                        </span>
+                        <span class="gantt-overview__segment" style="--left: 69%; --width: 31%;">
+                            <strong>2028</strong>
+                            <em>развитие функционала</em>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js?v=20260609-1"></script>
+</body>
+
+</html>
