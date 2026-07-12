@@ -104,9 +104,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 12px;
       min-height: 68px;
-      padding: 10px 16px;
+      padding: 10px 12px;
       border: 1px solid rgba(255, 255, 255, .72);
       border-radius: 0 0 20px 20px;
       background: rgba(248, 244, 239, .88);
@@ -123,7 +123,7 @@
 
     .brand img {
       display: block;
-      width: 152px;
+      width: 132px;
       height: auto;
     }
 
@@ -158,12 +158,16 @@
     .status {
       display: inline-flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 9px;
       flex: 0 0 auto;
+      max-width: 112px;
       color: var(--green);
       font-size: .75rem;
+      line-height: 1.2;
       font-weight: 800;
-      white-space: nowrap;
+      text-align: right;
+      white-space: normal;
     }
 
     .status-dot {
@@ -523,103 +527,314 @@
       line-height: 1.6;
     }
 
-    .process-wrap {
-      margin-top: 44px;
-      padding: 28px 22px;
-      border-radius: var(--radius-lg);
-      background: rgba(255, 253, 249, .74);
-      border: 1px solid rgba(255, 255, 255, .78);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .process {
-      position: relative;
+    .process-heading {
       display: grid;
       gap: 24px;
+      align-items: end;
+    }
+
+    .process-heading .section-title {
+      max-width: 26ch;
+      font-size: clamp(2rem, 4.6vw, 3.35rem);
+    }
+
+    .process-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      color: #66758f;
+      background: #edf2f7;
+      font-size: .86rem;
+      line-height: 1.4;
+      font-weight: 720;
+    }
+
+    .process-board {
+      --process-ink: #0d172d;
+      --process-accent: #00a995;
+      --process-accent-soft: #d8f5ef;
+      --process-line: #d9e1eb;
+      margin-top: 40px;
+    }
+
+    .process-tabs {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(248px, 78vw);
+      gap: 14px;
+      margin: 0 -16px;
+      padding: 4px 16px 18px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(13, 23, 45, .25) transparent;
+    }
+
+    .process-card {
+      min-height: 282px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 24px;
+      border: 1px solid var(--process-line);
+      border-radius: 26px;
+      color: var(--process-ink);
+      background: rgba(255, 253, 249, .92);
+      box-shadow: none;
+      text-align: left;
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition:
+        color 260ms var(--ease-out),
+        background 260ms var(--ease-out),
+        border-color 260ms var(--ease-out),
+        box-shadow 260ms var(--ease-out),
+        transform 260ms var(--ease-out);
+    }
+
+    .process-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .process-card-number {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--process-ink);
+      font-size: 1rem;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .process-owner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      max-width: 150px;
+      padding: 5px 12px;
+      border: 1px solid #a9cafa;
+      border-radius: 999px;
+      color: #174fae;
+      background: #eef5ff;
+      font-size: .8rem;
+      line-height: 1.2;
+      font-weight: 820;
+      text-align: center;
+    }
+
+    .process-owner.is-ekc {
+      color: #0b6d62;
+      background: #ecfbf8;
+      border-color: #78e5d8;
+    }
+
+    .process-owner.is-profile {
+      color: #3c4f7e;
+      background: #eef1ff;
+      border-color: #b9c5ff;
+    }
+
+    .process-card h3 {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 850;
+    }
+
+    .process-card p {
+      display: -webkit-box;
+      margin-top: 10px;
+      overflow: hidden;
+      color: #8391aa;
+      font-size: .9rem;
+      line-height: 1.5;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    .process-card-meta {
+      margin-top: auto;
+      padding-top: 20px;
+      color: var(--process-accent);
+      font-size: .72rem;
+      line-height: 1.2;
+      font-weight: 820;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .process-card.is-active {
+      color: #f7fafc;
+      background: var(--process-ink);
+      border-color: var(--process-ink);
+      box-shadow: 0 18px 36px rgba(13, 23, 45, .18);
+      transform: translateY(-4px);
+    }
+
+    .process-card.is-active .process-card-number {
+      color: var(--process-ink);
+      background: #f7fafc;
+    }
+
+    .process-card.is-active .process-owner {
+      color: #f7fafc;
+      background: rgba(255, 255, 255, .04);
+      border-color: rgba(255, 255, 255, .82);
+    }
+
+    .process-card.is-active p {
+      color: #c4cede;
+    }
+
+    .process-card:focus-visible {
+      outline-color: var(--process-accent);
+    }
+
+    .process-detail {
+      display: grid;
+      gap: 28px;
+      margin-top: 16px;
+      padding: clamp(24px, 4vw, 38px);
+      border: 1px solid var(--process-line);
+      border-radius: 28px;
+      background: #f4f7fa;
+    }
+
+    .process-detail.is-changing .process-detail-summary,
+    .process-detail.is-changing .process-actions {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .process-detail-summary,
+    .process-actions {
+      transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+    }
+
+    .process-detail-summary {
+      align-self: center;
+    }
+
+    .process-counter {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--process-accent);
+      font-size: .73rem;
+      line-height: 1.3;
+      font-weight: 850;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .process-detail-title {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+      font-weight: 870;
+    }
+
+    .process-responsible {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      color: #8391aa;
+      font-size: .92rem;
+    }
+
+    .process-responsible strong {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 5px 13px;
+      border: 1px solid #78e5d8;
+      border-radius: 999px;
+      color: var(--process-ink);
+      background: #ecfbf8;
+      font-weight: 850;
+    }
+
+    .process-actions {
+      padding-top: 26px;
+      border-top: 1px solid var(--process-line);
+    }
+
+    .process-actions-label {
+      margin-bottom: 16px;
+      color: #8391aa;
+      font-size: .86rem;
+      line-height: 1.35;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .process-action-list {
+      display: grid;
+      gap: 12px;
       margin: 0;
       padding: 0;
       list-style: none;
     }
 
-    .process::before {
-      content: "";
+    .process-action {
+      position: relative;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 14px 18px 14px 52px;
+      border: 1px solid var(--process-ink);
+      border-radius: 18px;
+      color: var(--process-ink);
+      background: rgba(255, 255, 255, .72);
+      font-size: .92rem;
+      line-height: 1.4;
+      font-weight: 680;
+    }
+
+    .process-action::before {
+      content: "✓";
       position: absolute;
-      left: 25px;
-      top: 50px;
-      bottom: 50px;
-      width: 2px;
-      background: linear-gradient(var(--brand), var(--gold));
-    }
-
-    .process-step {
-      position: relative;
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .step-icon {
-      position: relative;
-      z-index: 1;
+      left: 18px;
+      top: 50%;
       display: grid;
       place-items: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      color: var(--brand);
-      background: var(--surface);
-      border: 1px solid rgba(139, 0, 64, .18);
-      box-shadow: 0 9px 24px rgba(37, 22, 24, .09);
-    }
-
-    .step-icon svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .step-copy {
-      padding-top: 3px;
-    }
-
-    .step-number {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--brand);
-      font-size: .72rem;
-      font-weight: 850;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .step-copy h3 {
-      font-size: 1.12rem;
-      line-height: 1.25;
-      letter-spacing: -.025em;
-      font-weight: 830;
-    }
-
-    .step-copy p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: .94rem;
-      line-height: 1.55;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--process-accent);
+      border-radius: 4px;
+      color: var(--process-accent);
+      transform: translateY(-50%);
+      font-size: .8rem;
+      line-height: 1;
+      font-weight: 900;
     }
 
     .process-takeaway {
       margin-top: 26px;
-      padding: 24px;
-      border-radius: var(--radius-md);
-      color: #fff8f3;
-      background: var(--text);
-      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      padding: 20px 24px;
+      border: 1px solid #d5dcff;
+      border-radius: 20px;
+      color: var(--process-ink);
+      background: #f3f5ff;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
       line-height: 1.5;
-      font-weight: 720;
+      font-weight: 760;
+      text-align: center;
     }
 
     .status-section {
@@ -929,8 +1144,21 @@
         width: min(var(--max), calc(100% - 48px));
       }
 
+      .header-inner {
+        gap: 24px;
+        padding: 10px 16px;
+      }
+
+      .brand img {
+        width: 152px;
+      }
+
       .status {
+        max-width: none;
         font-size: .8rem;
+        line-height: 1.5;
+        text-align: left;
+        white-space: nowrap;
       }
 
       .channel-list {
@@ -991,6 +1219,26 @@
       .status-grid {
         grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr);
       }
+
+      .process-heading {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .process-hint {
+        justify-self: end;
+        max-width: 250px;
+      }
+
+      .process-detail {
+        grid-template-columns: minmax(220px, .68fr) minmax(0, 1.32fr);
+      }
+
+      .process-actions {
+        padding-top: 0;
+        padding-left: 28px;
+        border-top: 0;
+        border-left: 1px solid var(--process-line);
+      }
     }
 
     @media (min-width: 980px) {
@@ -1006,42 +1254,23 @@
         width: 172px;
       }
 
-      .process-wrap {
-        padding: 38px 30px 30px;
-      }
-
-      .process {
+      .process-tabs {
+        grid-auto-flow: row;
+        grid-auto-columns: auto;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 14px;
+        margin: 0;
+        padding: 4px 0 18px;
+        overflow: visible;
       }
 
-      .process::before {
-        left: 9%;
-        right: 9%;
-        top: 29px;
-        bottom: auto;
-        width: auto;
-        height: 2px;
-        background: linear-gradient(90deg, var(--brand), var(--gold));
+      .process-card {
+        min-width: 0;
+        min-height: 300px;
       }
 
-      .process-step {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-      }
-
-      .step-copy {
-        padding: 10px 7px 0;
-      }
-
-      .step-copy p {
-        font-size: .86rem;
-      }
-
-      .process-takeaway {
-        margin-top: 34px;
-        text-align: center;
+      .process-action-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -1052,6 +1281,21 @@
 
       .channels summary:hover::after {
         background: rgba(255, 255, 255, .20);
+      }
+
+      .process-card:not(.is-active):hover {
+        border-color: var(--process-accent);
+        box-shadow: 0 12px 28px rgba(13, 23, 45, .09);
+        transform: translateY(-3px);
+      }
+
+      .process-action:hover {
+        background: #fff;
+        transform: translateY(-2px);
+      }
+
+      .process-action {
+        transition: transform 180ms var(--ease-out), background 180ms var(--ease-out);
       }
 
       .model-item:hover::before {
@@ -1224,85 +1468,90 @@
     </section>
 
     <section class="section reveal" id="process" aria-labelledby="process-title">
-      <div class="section-kicker"><span>03</span> Как работает процесс</div>
-      <h2 class="section-title" id="process-title">ЕКЦ ведёт обращение по единому маршруту</h2>
-      <p class="section-intro">Даже если для решения нужна экспертиза нескольких подразделений, ответственность за
-        движение кейса и коммуникацию сохраняется в ЕКЦ.</p>
+      <div class="process-heading">
+        <div>
+          <div class="section-kicker"><span>03</span> Как работает процесс</div>
+          <h2 class="section-title" id="process-title">ЕКЦ ведёт обращение по единому маршруту и сохраняет связь с ФС</h2>
+          <p class="section-intro">Выберите шаг, чтобы увидеть ответственного и три ключевых действия внутри процесса.</p>
+        </div>
+        <p class="process-hint"><span aria-hidden="true">💡</span> Нажмите на шаг для просмотра деталей</p>
+      </div>
 
-      <div class="process-wrap">
-        <ol class="process">
-          <li class="process-step">
-            <span class="step-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 5.5h16v10H8l-4 3v-13Z" />
-                <path d="M8 9h8M8 12h5" />
-              </svg>
+      <div class="process-board">
+        <div class="process-tabs" role="tablist" aria-label="Пять шагов обработки обращения">
+          <button class="process-card is-active" id="process-step-1" type="button" role="tab" aria-selected="true"
+            aria-controls="process-detail" data-step="0">
+            <span class="process-card-head">
+              <span class="process-card-number">1</span>
+              <span class="process-owner">Клиент / ФС</span>
             </span>
-            <div class="step-copy">
-              <span class="step-number">Шаг 1</span>
-              <h3>Поступление</h3>
-              <p>Клиент обращается через подключённый канал либо ФС передаёт сервисный вопрос.</p>
-            </div>
-          </li>
-          <li class="process-step">
-            <span class="step-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <rect x="5" y="3" width="14" height="18" rx="2" />
-                <path d="M9 3.5h6V7H9zM8.5 11h7M8.5 15h5" />
-              </svg>
+            <h3>Поступление обращения</h3>
+            <p>Клиент пишет в чат приложения или личного кабинета либо ФС передаёт сервисный вопрос.</p>
+            <span class="process-card-meta">3 этапа внутри</span>
+          </button>
+
+          <button class="process-card" id="process-step-2" type="button" role="tab" aria-selected="false"
+            aria-controls="process-detail" data-step="1" tabindex="-1">
+            <span class="process-card-head">
+              <span class="process-card-number">2</span>
+              <span class="process-owner is-ekc">ЕКЦ</span>
             </span>
-            <div class="step-copy">
-              <span class="step-number">Шаг 2</span>
-              <h3>Регистрация</h3>
-              <p>ЕКЦ создаёт кейс в CRM, классифицирует обращение и появляется ответственный за обращение сотрудник.</p>
-            </div>
-          </li>
-          <li class="process-step">
-            <span class="step-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="m5 12 4 4L19 6" />
-                <circle cx="12" cy="12" r="9" />
-              </svg>
+            <h3>Регистрация и ответственный</h3>
+            <p>ЕКЦ создаёт кейс в CRM, классифицирует обращение и назначает ответственного.</p>
+            <span class="process-card-meta">3 этапа внутри</span>
+          </button>
+
+          <button class="process-card" id="process-step-3" type="button" role="tab" aria-selected="false"
+            aria-controls="process-detail" data-step="2" tabindex="-1">
+            <span class="process-card-head">
+              <span class="process-card-number">3</span>
+              <span class="process-owner is-ekc">ЕКЦ</span>
             </span>
-            <div class="step-copy">
-              <span class="step-number">Шаг 3</span>
-              <h3>Решение в ЕКЦ</h3>
-              <p>Типовой вопрос решается на первой линии с помощью базы знаний и сценариев.</p>
-            </div>
-          </li>
-          <li class="process-step">
-            <span class="step-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <circle cx="6" cy="7" r="2.5" />
-                <circle cx="18" cy="7" r="2.5" />
-                <circle cx="12" cy="17" r="2.5" />
-                <path d="m8 8.5 2.8 6M16 8.5l-2.8 6" />
-              </svg>
+            <h3>Решение на первой линии</h3>
+            <p>ЕКЦ уточняет детали и закрывает типовой вопрос с помощью базы знаний и сценариев.</p>
+            <span class="process-card-meta">3 этапа внутри</span>
+          </button>
+
+          <button class="process-card" id="process-step-4" type="button" role="tab" aria-selected="false"
+            aria-controls="process-detail" data-step="3" tabindex="-1">
+            <span class="process-card-head">
+              <span class="process-card-number">4</span>
+              <span class="process-owner is-profile">Профильный отдел</span>
             </span>
-            <div class="step-copy">
-              <span class="step-number">Шаг 4</span>
-              <h3>Профильная линия</h3>
-              <p>ЕКЦ привлекает экспертов второй или третьей линии и контролирует возврат ответа.</p>
-            </div>
-          </li>
-          <li class="process-step">
-            <span class="step-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M20 11a8 8 0 1 1-3-6.2" />
-                <path d="M20 4v7h-7" />
-                <path d="m8.5 12 2.2 2.2 4.8-5" />
-              </svg>
+            <h3>Подключение профильной линии</h3>
+            <p>ЕКЦ привлекает вторую или третью линию и контролирует возврат ответа.</p>
+            <span class="process-card-meta">3 этапа внутри</span>
+          </button>
+
+          <button class="process-card" id="process-step-5" type="button" role="tab" aria-selected="false"
+            aria-controls="process-detail" data-step="4" tabindex="-1">
+            <span class="process-card-head">
+              <span class="process-card-number">5</span>
+              <span class="process-owner is-ekc">ЕКЦ</span>
             </span>
-            <div class="step-copy">
-              <span class="step-number">Шаг 5</span>
-              <h3>Ответ и закрытие</h3>
-              <p>Клиент получает ответ, история фиксируется, ФС получает информацию по кейсу, накапливается статистика.
-              </p>
-            </div>
-          </li>
-        </ol>
-        <p class="process-takeaway">Несколько подразделений могут участвовать в решении, но для клиента и ФС это
-          остаётся одним обращением с одним ответственным.</p>
+            <h3>Ответ и закрытие</h3>
+            <p>Клиент получает согласованный ответ, история фиксируется, ФС получает уведомление.</p>
+            <span class="process-card-meta">3 этапа внутри</span>
+          </button>
+        </div>
+
+        <div class="process-detail" id="process-detail" role="tabpanel" tabindex="0" aria-labelledby="process-step-1">
+          <div class="process-detail-summary">
+            <span class="process-counter" id="process-counter">Текущий выбранный шаг: 1 из 5</span>
+            <h3 class="process-detail-title" id="process-detail-title">Поступление обращения</h3>
+            <p class="process-responsible">Ответственный: <strong id="process-detail-owner">Клиент / ФС</strong></p>
+          </div>
+          <div class="process-actions">
+            <p class="process-actions-label">Операционные подпроцессы в CRM</p>
+            <ul class="process-action-list" id="process-action-list" aria-live="polite">
+              <li class="process-action">Фиксация источника обращения</li>
+              <li class="process-action">Фиксация времени поступления</li>
+              <li class="process-action">Первичное определение контекста</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="process-takeaway">📌 Обращение может пройти через несколько подразделений, но для клиента и финансового советника оно остаётся одним кейсом с одним ответственным.</p>
       </div>
     </section>
 
@@ -1396,22 +1645,125 @@
   <script>
     (() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const items = document.querySelectorAll('.reveal');
+      const processSteps = [
+        {
+          title: 'Поступление обращения',
+          owner: 'Клиент / ФС',
+          actions: [
+            'Фиксация источника обращения',
+            'Фиксация времени поступления',
+            'Первичное определение контекста'
+          ]
+        },
+        {
+          title: 'Регистрация и ответственный',
+          owner: 'ЕКЦ',
+          actions: [
+            'Создание тикета в CRM',
+            'Назначение ответственного за кейс',
+            'Уведомление ФС при необходимости'
+          ]
+        },
+        {
+          title: 'Решение на первой линии',
+          owner: 'ЕКЦ',
+          actions: [
+            'Проверка по базе знаний',
+            'Подготовка быстрого ответа',
+            'Закрытие без передачи на следующую линию'
+          ]
+        },
+        {
+          title: 'Подключение профильной линии',
+          owner: 'Профильный отдел',
+          actions: [
+            'Постановка задачи экспертам',
+            'Мониторинг соблюдения сроков',
+            'Сборка ответов в понятную форму'
+          ]
+        },
+        {
+          title: 'Ответ и закрытие',
+          owner: 'ЕКЦ',
+          actions: [
+            'Предоставление ответа клиенту',
+            'Уведомление финансового советника',
+            'Архивирование истории в CRM'
+          ]
+        }
+      ];
 
+      const processCards = Array.from(document.querySelectorAll('.process-card'));
+      const processDetail = document.getElementById('process-detail');
+      const processCounter = document.getElementById('process-counter');
+      const processTitle = document.getElementById('process-detail-title');
+      const processOwner = document.getElementById('process-detail-owner');
+      const processActionList = document.getElementById('process-action-list');
+      let processTransitionTimer;
+
+      const renderProcessStep = (index) => {
+        const step = processSteps[index];
+        if (!step || !processDetail || !processCounter || !processTitle || !processOwner || !processActionList) return;
+
+        processCards.forEach((card, cardIndex) => {
+          const selected = cardIndex === index;
+          card.classList.toggle('is-active', selected);
+          card.setAttribute('aria-selected', String(selected));
+          card.tabIndex = selected ? 0 : -1;
+        });
+
+        const commitDetails = () => {
+          processCounter.textContent = `Текущий выбранный шаг: ${index + 1} из ${processSteps.length}`;
+          processTitle.textContent = step.title;
+          processOwner.textContent = step.owner;
+          processActionList.replaceChildren(...step.actions.map((action) => {
+            const item = document.createElement('li');
+            item.className = 'process-action';
+            item.textContent = action;
+            return item;
+          }));
+          processDetail.setAttribute('aria-labelledby', `process-step-${index + 1}`);
+          processDetail.classList.remove('is-changing');
+        };
+
+        window.clearTimeout(processTransitionTimer);
+        if (reduceMotion) {
+          commitDetails();
+        } else {
+          processDetail.classList.add('is-changing');
+          processTransitionTimer = window.setTimeout(commitDetails, 120);
+        }
+      };
+
+      processCards.forEach((card, index) => {
+        card.addEventListener('click', () => renderProcessStep(index));
+        card.addEventListener('keydown', (event) => {
+          let nextIndex = index;
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % processCards.length;
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + processCards.length) % processCards.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = processCards.length - 1;
+          if (nextIndex === index) return;
+          event.preventDefault();
+          renderProcessStep(nextIndex);
+          processCards[nextIndex].focus();
+        });
+      });
+
+      const items = document.querySelectorAll('.reveal');
       if (reduceMotion || !('IntersectionObserver' in window)) {
         items.forEach((item) => item.classList.add('is-visible'));
-        return;
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+        items.forEach((item) => observer.observe(item));
       }
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-
-      items.forEach((item) => observer.observe(item));
     })();
   </script>
 </body>
