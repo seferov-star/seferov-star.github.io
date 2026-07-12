@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Единая сервисная модель для финансовых советников СОЛИД Инвестиции">
+  <title>ЕСМ для финансовых советников | СОЛИД Инвестиции</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #f8f4ef;
+      --bg-deep: #eee5dc;
+      --surface: #fffdf9;
+      --surface-soft: #f4ede6;
+      --text: #251618;
+      --muted: #71645f;
+      --line: rgba(37, 22, 24, .13);
+      --brand: #8b0040;
+      --brand-bright: #b01655;
+      --brand-soft: #f2e3e9;
+      --gold: #d0aa67;
+      --gold-soft: #f4e8d2;
+      --green: #20735a;
+      --green-soft: #e4f1eb;
+      --amber: #9a6200;
+      --amber-soft: #fff1d3;
+      --violet: #6d456d;
+      --violet-soft: #f0e5f0;
+      --shadow-sm: 0 10px 28px rgba(37, 22, 24, .07);
+      --shadow-lg: 0 28px 80px rgba(37, 22, 24, .13);
+      --radius-sm: 14px;
+      --radius-md: 22px;
+      --radius-lg: 34px;
+      --max: 1180px;
+      --ease-out: cubic-bezier(.16, 1, .3, 1);
+      --ease-state: cubic-bezier(.65, 0, .35, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 5% -5%, rgba(139, 0, 64, .13), transparent 30rem),
+        radial-gradient(circle at 98% 8%, rgba(208, 170, 103, .20), transparent 28rem),
+        linear-gradient(145deg, var(--bg), var(--bg-deep));
+      font-family: Manrope, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-kerning: normal;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: .22;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cpath d='M0 95.5h96M95.5 0v96' stroke='%238b0040' stroke-opacity='.12' fill='none'/%3E%3C/svg%3E");
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    summary {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(139, 0, 64, .35);
+      outline-offset: 4px;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 68px;
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 0 0 20px 20px;
+      background: rgba(248, 244, 239, .88);
+      box-shadow: 0 8px 30px rgba(37, 22, 24, .07);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
+    .brand img {
+      display: block;
+      width: 152px;
+      height: auto;
+    }
+
+    .nav {
+      display: none;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: .875rem;
+      font-weight: 700;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 12px 0;
+      text-decoration: none;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 8px;
+      height: 2px;
+      background: var(--brand);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 240ms var(--ease-out);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      flex: 0 0 auto;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(32, 115, 90, .12);
+    }
+
+    main {
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: min(680px, calc(100vh - 110px));
+      display: grid;
+      align-content: center;
+      padding: clamp(40px, 7vw, 84px) clamp(24px, 6vw, 72px);
+      border: 1px solid rgba(255, 255, 255, .76);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(255, 253, 249, .97), rgba(255, 253, 249, .70)),
+        linear-gradient(135deg, rgba(139, 0, 64, .11), rgba(208, 170, 103, .13));
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: clamp(300px, 48vw, 620px);
+      aspect-ratio: 1;
+      right: -18%;
+      top: -34%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 0, 64, .18), transparent 68%);
+    }
+
+    .hero::after {
+      content: "ЕСМ";
+      position: absolute;
+      z-index: -1;
+      right: clamp(18px, 5vw, 58px);
+      bottom: 18px;
+      color: rgba(37, 22, 24, .045);
+      font-size: clamp(6rem, 19vw, 13rem);
+      font-weight: 900;
+      line-height: .8;
+      letter-spacing: -.08em;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 9px;
+      margin-bottom: 20px;
+      color: var(--brand);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--gold));
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 15ch;
+      margin-left: -.04em;
+      font-size: clamp(2.65rem, 7vw, 5.35rem);
+      font-weight: 870;
+      line-height: .98;
+      letter-spacing: -.06em;
+    }
+
+    .hero-lead {
+      max-width: 58ch;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.6;
+      font-weight: 560;
+    }
+
+    .hero-principle {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      max-width: 750px;
+      margin-top: 38px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .principle-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--surface);
+      background: var(--brand);
+      font-weight: 850;
+    }
+
+    .hero-principle p {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .section {
+      padding: clamp(74px, 11vw, 132px) 0 0;
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: var(--brand);
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker span {
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+    }
+
+    .section-title {
+      max-width: 19ch;
+      margin-left: -.035em;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+      font-weight: 870;
+    }
+
+    .section-intro {
+      max-width: 62ch;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+    }
+
+    .problem-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .metric {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric:first-child {
+      border: 0;
+      border-radius: var(--radius-md);
+      color: #fff8f3;
+      background: var(--brand);
+      box-shadow: 0 20px 50px rgba(139, 0, 64, .20);
+    }
+
+    .metric:first-child::after {
+      content: "46";
+      position: absolute;
+      right: 18px;
+      bottom: -30px;
+      color: rgba(255, 255, 255, .08);
+      font-size: 9rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .metric-value {
+      display: block;
+      margin-bottom: 12px;
+      font-size: clamp(2.65rem, 7vw, 5.1rem);
+      line-height: .9;
+      letter-spacing: -.065em;
+      font-weight: 880;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-label {
+      max-width: 42ch;
+      color: var(--muted);
+      font-size: .975rem;
+      line-height: 1.55;
+      font-weight: 620;
+    }
+
+    .metric:first-child .metric-label {
+      color: rgba(255, 248, 243, .78);
+    }
+
+    .channels {
+      margin-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .channels summary {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      cursor: pointer;
+      color: #fff8f3;
+      font-size: .875rem;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    .channels summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .channels summary::after {
+      content: "+";
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: #fff8f3;
+      background: rgba(255, 255, 255, .12);
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: transform 260ms var(--ease-state);
+    }
+
+    .channels[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .channel-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px 24px;
+      margin: 0;
+      padding: 8px 0 8px 1.2rem;
+      color: rgba(255, 248, 243, .76);
+      font-size: .875rem;
+      line-height: 1.45;
+    }
+
+    .takeaway {
+      margin-top: 30px;
+      padding: 24px 0 0;
+      border-top: 1px solid var(--line);
+      font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+      line-height: 1.42;
+      letter-spacing: -.025em;
+      font-weight: 760;
+    }
+
+    .model-layout {
+      display: grid;
+      gap: 40px;
+      margin-top: 46px;
+    }
+
+    .model-summary {
+      align-self: start;
+      padding: 28px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(145deg, var(--brand-soft), rgba(255, 253, 249, .72));
+      border: 1px solid rgba(139, 0, 64, .12);
+    }
+
+    .model-summary strong {
+      display: block;
+      color: var(--brand);
+      font-size: 1.25rem;
+      line-height: 1.35;
+    }
+
+    .model-summary p {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .model-list {
+      counter-reset: directions;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .model-item {
+      counter-increment: directions;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 18px;
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .model-item:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .model-item::before {
+      content: counter(directions, decimal-leading-zero);
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-size: .75rem;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .model-item h3 {
+      font-size: 1.18rem;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 820;
+    }
+
+    .model-item p {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .process-wrap {
+      margin-top: 44px;
+      padding: 28px 22px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 253, 249, .74);
+      border: 1px solid rgba(255, 255, 255, .78);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .process {
+      position: relative;
+      display: grid;
+      gap: 24px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .process::before {
+      content: "";
+      position: absolute;
+      left: 25px;
+      top: 50px;
+      bottom: 50px;
+      width: 2px;
+      background: linear-gradient(var(--brand), var(--gold));
+    }
+
+    .process-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .step-icon {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      color: var(--brand);
+      background: var(--surface);
+      border: 1px solid rgba(139, 0, 64, .18);
+      box-shadow: 0 9px 24px rgba(37, 22, 24, .09);
+    }
+
+    .step-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .step-copy {
+      padding-top: 3px;
+    }
+
+    .step-number {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--brand);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .step-copy h3 {
+      font-size: 1.12rem;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+      font-weight: 830;
+    }
+
+    .step-copy p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .94rem;
+      line-height: 1.55;
+    }
+
+    .process-takeaway {
+      margin-top: 26px;
+      padding: 24px;
+      border-radius: var(--radius-md);
+      color: #fff8f3;
+      background: var(--text);
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      line-height: 1.5;
+      font-weight: 720;
+    }
+
+    .status-section {
+      position: relative;
+      overflow: hidden;
+      margin-top: clamp(74px, 11vw, 132px);
+      padding: clamp(38px, 7vw, 72px) clamp(24px, 6vw, 66px);
+      border-radius: var(--radius-lg);
+      color: #fff8f3;
+      background:
+        radial-gradient(circle at 92% 12%, rgba(208, 170, 103, .32), transparent 25rem),
+        linear-gradient(135deg, #5f002c, var(--brand));
+      box-shadow: 0 28px 78px rgba(95, 0, 44, .25);
+    }
+
+    .status-section .section-kicker,
+    .status-section .section-kicker span {
+      color: rgba(255, 248, 243, .72);
+    }
+
+    .status-section .section-title {
+      max-width: 17ch;
+    }
+
+    .status-grid {
+      display: grid;
+      gap: 38px;
+      align-items: end;
+      margin-top: 42px;
+    }
+
+    .result {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: end;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, .20);
+    }
+
+    .result strong {
+      font-size: clamp(4.5rem, 16vw, 8.4rem);
+      line-height: .74;
+      letter-spacing: -.085em;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .result p {
+      max-width: 23ch;
+      color: rgba(255, 248, 243, .78);
+      font-size: .95rem;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .status-facts {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin: 0;
+    }
+
+    .status-fact {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 14px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .status-fact:first-child {
+      border-top: 0;
+    }
+
+    .status-fact::before {
+      content: "✓";
+      grid-row: 1 / 3;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #fff8f3;
+      background: rgba(255, 255, 255, .12);
+      font-weight: 900;
+    }
+
+    .status-fact dt {
+      grid-column: 2;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .status-fact dd {
+      grid-column: 2;
+      margin: 5px 0 0;
+      color: rgba(255, 248, 243, .70);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .stages {
+      display: grid;
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    .stage {
+      position: relative;
+      overflow: hidden;
+      padding: 26px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 253, 249, .78);
+      border: 1px solid rgba(255, 255, 255, .75);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--stage-color);
+    }
+
+    .stage-now {
+      --stage-color: var(--green);
+      --stage-soft: var(--green-soft);
+    }
+
+    .stage-next {
+      --stage-color: var(--amber);
+      --stage-soft: var(--amber-soft);
+    }
+
+    .stage-fs {
+      --stage-color: var(--violet);
+      --stage-soft: var(--violet-soft);
+    }
+
+    .stage-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: var(--stage-color);
+      background: var(--stage-soft);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .stage h3 {
+      margin-top: 16px;
+      font-size: 1.35rem;
+      line-height: 1.25;
+      letter-spacing: -.035em;
+      font-weight: 850;
+    }
+
+    .stage ul {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stage li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: .94rem;
+      line-height: 1.55;
+    }
+
+    .stage li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .67em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--stage-color);
+    }
+
+    .cta {
+      display: grid;
+      gap: 30px;
+      margin-top: clamp(74px, 11vw, 132px);
+      padding: clamp(38px, 7vw, 70px) clamp(24px, 6vw, 66px);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 253, 249, .84);
+      border: 1px solid rgba(255, 255, 255, .8);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta h2 {
+      max-width: 16ch;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+      font-weight: 870;
+    }
+
+    .cta-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: cta;
+    }
+
+    .cta-list li {
+      counter-increment: cta;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: center;
+      min-height: 56px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .cta-list li::before {
+      content: counter(cta);
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-size: .75rem;
+      font-weight: 850;
+    }
+
+    .notice {
+      padding: 18px 20px;
+      border-radius: var(--radius-sm);
+      color: var(--brand);
+      background: var(--brand-soft);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px 24px;
+      padding: 30px 0 max(30px, env(safe-area-inset-bottom));
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 650;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 640ms var(--ease-out),
+        transform 640ms var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero .eyebrow,
+    .hero h1,
+    .hero-lead,
+    .hero-principle {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: hero-in 720ms var(--ease-out) forwards;
+    }
+
+    .hero h1 {
+      animation-delay: 80ms;
+    }
+
+    .hero-lead {
+      animation-delay: 160ms;
+    }
+
+    .hero-principle {
+      animation-delay: 240ms;
+    }
+
+    @keyframes hero-in {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 640px) {
+      .shell {
+        width: min(var(--max), calc(100% - 48px));
+      }
+
+      .status {
+        font-size: .8rem;
+      }
+
+      .channel-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .problem-grid {
+        grid-template-columns: 1.25fr .75fr .75fr;
+        align-items: stretch;
+      }
+
+      .metric {
+        border-top: 0;
+        border-left: 1px solid var(--line);
+      }
+
+      .metric:nth-child(2) {
+        border-left: 0;
+      }
+
+      .status-facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 24px;
+      }
+
+      .status-fact:nth-child(2) {
+        border-top: 0;
+      }
+
+      .stages {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .cta {
+        grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+        align-items: start;
+      }
+
+      .notice {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 780px) {
+      .nav {
+        display: flex;
+      }
+
+      .model-layout {
+        grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
+      }
+
+      .model-summary {
+        position: sticky;
+        top: 104px;
+      }
+
+      .status-grid {
+        grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr);
+      }
+    }
+
+    @media (min-width: 980px) {
+      main {
+        padding-top: 34px;
+      }
+
+      .header-inner {
+        padding-inline: 22px;
+      }
+
+      .brand img {
+        width: 172px;
+      }
+
+      .process-wrap {
+        padding: 38px 30px 30px;
+      }
+
+      .process {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .process::before {
+        left: 9%;
+        right: 9%;
+        top: 29px;
+        bottom: auto;
+        width: auto;
+        height: 2px;
+        background: linear-gradient(90deg, var(--brand), var(--gold));
+      }
+
+      .process-step {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .step-copy {
+        padding: 10px 7px 0;
+      }
+
+      .step-copy p {
+        font-size: .86rem;
+      }
+
+      .process-takeaway {
+        margin-top: 34px;
+        text-align: center;
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav a:hover::after {
+        transform: scaleX(1);
+      }
+
+      .channels summary:hover::after {
+        background: rgba(255, 255, 255, .20);
+      }
+
+      .model-item:hover::before {
+        color: #fff8f3;
+        background: var(--brand);
+        transform: translateY(-2px);
+      }
+
+      .model-item::before {
+        transition: transform 220ms var(--ease-out), background 220ms var(--ease-out), color 220ms var(--ease-out);
+      }
+
+      .stage {
+        transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
+      }
+
+      .stage:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 42px rgba(37, 22, 24, .11);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="СОЛИД Инвестиции — к началу страницы">
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJpNjM4ODY5MTg3X19f0KHQu9C+0LlfMiIgZGF0YS1uYW1lPSLQodC70L7QuSAyIiB2aWV3Qm94PSIwIDAgMTA1OC40NiAyODkuNzYiIGNsYXNzPSJoZWFkZXJfX2xvZ28tc3ZnIGhlYWRlcl9fbG9nby1zdmctLWZpeGVkIj48ZGVmcz48c3R5bGU+Lmk2Mzg4NjkxODdfX2Nscy0xe2ZpbGw6IzI1MTYxOH08L3N0eWxlPjwvZGVmcz48ZyBpZD0iaTYzODg2OTE4N19fTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIj48cGF0aCBkPSJNMjg1LjgyIDEzNy41NGMtNS45Ny0xMC41NC04Ljk1LTIyLjY1LTguOTUtMzYuMzFzMi45OC0yNS41IDguOTUtMzYuMDVjMTIuMjEtMjEuNTggMzQuNTktMzMuNDYgNjAuODMtMzMuNDYgMjguMDEgMCA0OC4xOCAxMi40OSA2MC40NCAzMC4wOWwtMjUuNDIgMjAuMjNjLTYuNzEtOS45LTE3LjQ5LTE2Ljg2LTMyLjQyLTE2Ljg2LTMwLjcxIDAtMzQuNSAyNy4wNy0zNC41IDM2LjA1IDAgMjkuNzggMjIuNzUgMzYuMzEgMzQuNSAzNi4zMSAxMy44MiAwIDI2LjExLTYuNDggMzMuOTgtMTkuNzFsMjUuOTQgMTkuNzFDMzk2LjIyIDE1OSAzNzMuNzggMTcxIDM0Ni45MiAxNzFjLTI5IDAtNDkuOTctMTMuODEtNjEuMDgtMzMuNDZaTTQzMC42MiAxMzcuMjhjLTYuMjMtMTAuNTUtOS4zNC0yMi40OC05LjM0LTM1Ljc5czMuMTEtMjUuNSA5LjM0LTM2LjA1YzEyLjM3LTIwLjk2IDM1LjQ2LTMzLjcyIDY0LjA3LTMzLjcyIDMxLjI3IDAgNTMuMTEgMTUuMTYgNjQuMDcgMzMuNzIgNi4yMyAxMC41NSA5LjM0IDIyLjU3IDkuMzQgMzYuMDVzLTMuMTEgMjUuMjUtOS4zNCAzNS43OUM1NDUuMzkgMTU5LjkzIDUyMC41NyAxNzEgNDk0LjY5IDE3MWMtMjguMyAwLTUxLjUxLTEyLjQ1LTY0LjA3LTMzLjcyWm04Mi42Mi00LjQxYzEwLjYtNi4wNiAxNy4yNS0xNy4wOSAxNy4yNS0zMS42NCAwLTE1LjQtNy44LTI1Ljk5LTE3LjI1LTMxLjM5LTUuNDUtMy4xMS0xMS42My00LjY3LTE4LjU1LTQuNjdzLTEzLjEgMS41Ni0xOC41NSA0LjY3Yy0xMC4zMyA1LjkxLTE3LjI1IDE2Ljc0LTE3LjI1IDMxLjM5czcuMDMgMjUuODEgMTcuMjUgMzEuNjRjNS40NSAzLjExIDExLjYzIDQuNjcgMTguNTUgNC42N3MxMy4xLTEuNTYgMTguNTUtNC42N1pNNjA3LjM3IDM0LjgybC01LjQ1IDc5LjYzYy0uNTIgNy4yNi0yLjEyIDEyLjI0LTQuOCAxNC45MnMtNy42NSA0LjAyLTE0LjkxIDQuMDJoLTIuMTVjLTIuNzYtLjA0LTQuOTEtLjItNS40OC0uMjVsNy45NiAzNC43NGMxMi42NC0uMDMgMjIuODMtMS40OSAzMC41NC00LjQgNy43OC0yLjk0IDEzLjgzLTguMTMgMTguMTYtMTUuNTYgNC4zMi03LjQzIDYuOTEtMTcuODEgNy43OC0zMS4xM2wzLjU0LTQ5LjhoMzUuNXYxMDAuOWgzNy44N1YzNC44Mkg2MDcuMzdaTTEwMzUuOSAxMzIuNjFWMzQuODJIOTI4bC01LjQ1IDc1Ljc0Yy0uNjkgOC4zLTIuODEgMTQuMTQtNi4zNSAxNy41MS0zLjU1IDMuMzctOS4zOCA1LjA2LTE3LjUxIDUuMDZoLTMuMzd2NTkuODJoMzYuMzF2LTI1LjA2aDkwLjUydjI1LjA2aDM2LjMxdi02MC4zNGgtMjIuNTdabS04MC4wMi03YzEuNjQtNC4xNSAyLjcyLTkuNDIgMy4yNC0xNS44MmwzLTQyLjhoMzYuOTR2NjcuNDRIOTUwLjFjMi40NC0yLjQgNC4zOC01LjMxIDUuNzctOC44MlpNODE4LjU5IDM0LjgybC0yNi4yIDc1Ljc0LTExLjYzIDM0LjA1Ljk0LTM4Ljk4VjM0LjgyaC0zNi4zMXYxMzMuMDdoNTkuMTlsMjcuMy03NS43NCAxMS44OS0zNC4xMy0uOTQgMzguOHY3MS4wN2gzNi4wNlYzNC44MmgtNjAuM3pNMjA3LjIxIDE0Ny42MXYtMzIuNzdzLTM3LjA3IDI1LjExLTg4LjQyIDI1LjExYy00Mi43NyAwLTgzLjU4LTE2LjQ4LTExOC40My00Ny4xNy0uMjEgMi43OS0uMzYgNS42LS4zNiA4LjQ5di4xNWMwIDQuNTYuMjkgOC45OS44MiAxMy4zIDM0LjM2IDI5LjQgNzYgNDcuMzcgMTIxLjM3IDQ5LjE5IDI5Ljc1IDEuMiA1OC40NS00LjY2IDg1LjAyLTE2LjMxWiIgY2xhc3M9Imk2Mzg4NjkxODdfX2Nscy0xIj48L3BhdGg+PHBhdGggZD0iTTc2LjI0IDEwMS40M3YtLjE1YzAtMTEuODIgNC41MS0xOS44NyAxMi40OS0yNS42MSA4Ljc3LTYuMyAyMy4zNC0xMC44NiA0NC4yOC0xMC43OCAxNy44LjIgNDMuMzkgNC40MiA3My44MiAyMi43NmwuMzcuMjJWMTIuNDFDMTc4LjQ0IDIuNzkgMTUzLjQ3IDAgMTMxLjI4IDAgOTQuODQgMCA2Mi40IDcuNTEgMzguNTEgMjQuNDcgMjAuMjggMzcuNCA4LjA3IDU1LjE3IDIuODYgNzYuNjZjMjMuNjUgMjIuNTYgNTAuOTggMzguNDMgODAuNSA0NS41NS00LjYtNS4yMy03LjEyLTExLjk2LTcuMTItMjAuNzlaTTEyOS45MSAxNzcuNTdjLTIuNzUgMC01LjUtLjA2LTguMjYtLjE3LTQxLjcyLTEuNjgtODEuMjgtMTUuOTgtMTE1LjcyLTQxLjI0IDYuMjUgMTYuOTkgMTcuMyAzMS4yMyAzMi41OSA0Mi4wNyAyMy44OSAxNi45NiA1Ni4zNCAyNC40NyA5Mi43NyAyNC40NyAyMi4xOSAwIDQ3LjE2LTIuNzkgNzUuOTItMTIuNDF2LTI3LjljLTI0LjY4IDkuOTktNTAuNzEgMTUuMTctNzcuMyAxNS4xN1pNNTIxLjY0IDIzNS44MmMtMy44NC05LjMyLTEyLjc0LTE3LjAyLTI2LjQzLTE3LjAyLTEwLjk3IDAtMjAuMDkgNS4wMi0yNC45NiAxMy45Ni0yLjQxIDQuNDItMy42MSA5LjUxLTMuNjEgMTUuMjdzMS4yMiAxMC44NiAzLjY3IDE1LjI3YzQuNSA4LjEyIDEyLjk3IDEzLjk2IDI1Ljc4IDEzLjk2IDEwLjE1IDAgMTkuNzItNC4xNCAyNC45Ni0xMC44NGwtOC4zMi03LjQ0Yy0xLjk3IDIuMjYtNC4zOCAzLjk4LTcuMjIgNS4xNS0yLjg1IDEuMTctNS45NSAxLjc1LTkuMyAxLjc1cy02LjAyLS41Ni04LjQzLTEuN2MtNC4wOC0xLjkyLTcuMTMtNS40Mi04LjI1LTExLjExaDQ0LjA0Yy44OC02LjI4LjI0LTEyLjAyLTEuOTItMTcuMjRabS00MC4yOCAyLjM1YzEuMzUtMi42MyAzLjI1LTQuNjEgNS42OS01Ljk3IDIuNDQtMS4zNSA1LjM4LTIuMDMgOC44MS0yLjAzczYuMzcuNjkgOC44MSAyLjA4YzIuNDQgMS4zOSA0LjI3IDMuMzkgNS40NyA2LjAyLjYyIDEuMzUgMS4wNyAyLjg0IDEuMzcgNC40OGgtMzEuNzVjLjM2LTEuNjguODgtMy4yMSAxLjU5LTQuNTlaTTUzNC4zNCAyNjMuMThjLTIuNDUtNC40MS0zLjY3LTkuNDctMy42Ny0xNS4xNnMxLjI0LTEwLjc0IDMuNzItMTUuMTZjMy45Mi02Ljk4IDEyLjQ4LTE0LjA2IDI1LjE3LTE0LjA2IDEwLjk0IDAgMTkuNjggNC45MSAyNS4yOCAxMy4yNGwtOS4zIDYuOWMtMS42MS0yLjYzLTMuNzYtNC42Ny02LjQ2LTYuMTNzLTUuNjktMi4xOS04Ljk4LTIuMTktNi4xNy43My04LjY1IDIuMTljLTIuNDggMS40Ni00LjQyIDMuNS01LjggNi4xMy0xLjM5IDIuNjMtMi4wOCA1LjY2LTIuMDggOS4wOHMuNzEgNi40NiAyLjEzIDkuMDkgMy4zNyA0LjY3IDUuODYgNi4xM2MyLjQ4IDEuNDYgNS4zMyAyLjE5IDguNTQgMi4xOXM2LjQ0LS44MiA5LjI1LTIuNDZjMi44MS0xLjY0IDUuMDUtMy45NiA2LjczLTYuOTVsOS41MiA2LjU3Yy01LjE5IDkuMzctMTQuNyAxNC42Ny0yNi4wNSAxNC42N3MtMjAuMjktNS4xNi0yNS4yMy0xNC4wN1pNODc0LjEyIDIyMC4xMWwtMjEuNTMgNDQuNzYuNC0xMy45NXYtMzAuODFoLTEyLjkxdjU1LjgyaDE5LjIxbDIxLjUyLTQ0Ljc2LS40IDEzLjk1djMwLjgxaDEyLjkydi01NS44MmgtMTkuMjF6TTgwOS4zNiAyMjAuMTFsLTIxLjUzIDQ0Ljc2LjQtMTMuOTV2LTMwLjgxaC0xMi45MXY1NS44MmgxOS4yMWwyMS41My00NC43Ni0uNDEgMTMuOTV2MzAuODFoMTIuOTJ2LTU1LjgyaC0xOS4yMXpNNjc3LjU2IDIyMC4xMWwtMjEuNTMgNDQuNzYuNC0xMy45NXYtMzAuODFoLTEyLjkxdjU1LjgyaDE5LjIxbDIxLjUyLTQ0Ljc2LS40IDEzLjk1djMwLjgxaDEyLjkydi01NS44MmgtMTkuMjF6TTc1OS4wNiAyNjMuODl2LTQzLjc4aC0xMi45MnY0NGgtMjQuMDh2LTQ0aC0xMi45MXY1NS44Mmg0Ny4wNnYxMy44M2gxMi40OHYtMjUuODdoLTkuNjN6TTYzNi4yOSAyMjAuMTFoLTQ3Ljk0djExLjgyaDE3LjUxdjQ0aDEyLjkydi00NGgxNy41MXYtMTEuODJ6TTQ1MS4zNyAyNDguMjRjLTEuMjUtLjYtMi42My0xLjA3LTQuMTItMS40MSAyLjA0LS42OSAzLjgtMS42NiA1LjI2LTIuOTEgMi44NS0yLjQ0IDQuMjctNS42NyA0LjI3LTkuNjkgMC02Ljg0LTQuMTQtMTAuNTYtOC4xNS0xMi4zNy0yLjU5LTEuMTctNS42NC0xLjc1LTkuMTQtMS43NWgtMzAuMDR2NTUuODJoMzEuNDdjMTMuOCAwIDE4LjUtOC4wMiAxOC41LTE1IDAtNS43Ni0yLjg0LTEwLjIxLTguMDQtMTIuN1ptLTguOTctMTYuNjljMS40MiAxLjEzIDIuMTMgMi43NiAyLjEzIDQuODdzLS43MyAzLjY1LTIuMTkgNC44MmMtMS40NiAxLjE3LTMuNDcgMS43NS02LjAyIDEuNzVoLTE0LjE3di0xMy4xM2gxNC4xN2MyLjYzIDAgNC42NS41NyA2LjA3IDEuN1ptMS45MSAzMi42N2MtMS40NiAxLjE3LTMuNTggMS43NS02LjM1IDEuNzVoLTE1Ljgydi0xMy42OGgxNS44MmMyLjc3IDAgNC44OS41OSA2LjM1IDEuNzUgMS40NiAxLjE3IDIuMTkgMi44OCAyLjE5IDUuMTRzLS43MyAzLjg3LTIuMTkgNS4wNFpNMzgzLjE4IDIyMC4xMXYyMS40OGgtMjUuNDV2LTIxLjQ4aC0xMi45MXY1NS44MmgxMi45MXYtMjIuOTZoMjUuNDV2MjIuOTZoMTIuOTJ2LTU1LjgyaC0xMi45MnpNMzEzLjYzIDIyMC4xMWwtMjEuNTMgNDQuNzYuNC0xMy45NXYtMzAuODFoLTEyLjkxdjU1LjgyaDE5LjIxbDIxLjUyLTQ0Ljc2LS40IDEzLjk1djMwLjgxaDEyLjkxdi01NS44MmgtMTkuMnoiIGNsYXNzPSJpNjM4ODY5MTg3X19jbHMtMSI+PC9wYXRoPjwvZz48L3N2Zz4="
+          alt="СОЛИД Инвестиции">
+      </a>
+      <nav class="nav" aria-label="Навигация по странице">
+        <a href="#why">Зачем ЕСМ</a>
+        <a href="#model">Модель</a>
+        <a href="#process">Процесс</a>
+        <a href="#channels">Каналы</a>
+      </nav>
+      <div class="status" aria-label="Статус: первый контур работает">
+        <span class="status-dot" aria-hidden="true"></span>
+        Первый контур работает
+      </div>
+    </div>
+  </header>
+
+  <main class="shell" id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="eyebrow">Единая сервисная модель · ЕКЦ</div>
+      <h1 id="hero-title">Единый маршрут клиентских обращений</h1>
+      <p class="hero-lead">ЕКЦ поможет быстрее решать сервисные вопросы клиентов и снизит ручную координацию для
+        финансовых советников.</p>
+      <div class="hero-principle">
+        <span class="principle-mark" aria-hidden="true">1</span>
+        <p>ЕСМ — единые правила и процесс обслуживания. ЕКЦ — подразделение первой линии, которое реализует эту модель в
+          ежедневной работе.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="why" aria-labelledby="why-title">
+      <div class="section-kicker"><span>01</span> Почему меняем сервис</div>
+      <h2 class="section-title" id="why-title">Разрозненные каналы усложняют путь клиента</h2>
+      <p class="section-intro">Обращения попадают в разные команды и обрабатываются по разным правилам. Это мешает
+        видеть целостную картину и управлять качеством сервиса.</p>
+
+      <div class="problem-grid">
+        <article class="metric">
+          <span class="metric-value">12 / 46</span>
+          <p class="metric-label">каналов и точек входа ведут в разные подразделения</p>
+          <details class="channels">
+            <summary>Показать 12 каналов</summary>
+            <ol class="channel-list">
+              <li>Телефон трейдеров</li>
+              <li>Телефон технической поддержки</li>
+              <li>Форма обратной связи на сайте</li>
+              <li>Чат на сайте</li>
+              <li>Чат в приложении «Солид Инвестор»</li>
+              <li>Телефон горячей линии</li>
+              <li>Форма обратной связи в личном кабинете</li>
+              <li>Электронная почта технической поддержки</li>
+              <li>Электронная почта секретариата</li>
+              <li>Электронная почта ОКС</li>
+              <li>Телефоны филиалов</li>
+              <li>Электронные почты филиалов</li>
+            </ol>
+          </details>
+        </article>
+        <article class="metric">
+          <span class="metric-value">10 000+</span>
+          <p class="metric-label">обращений за 2025 год требуют единого учёта и управляемого процесса</p>
+        </article>
+        <article class="metric">
+          <span class="metric-value">120</span>
+          <p class="metric-label">жалоб за 2025 год — часть проблем не решается на ранней стадии</p>
+        </article>
+      </div>
+
+      <p class="takeaway">Пока нет единого окна, клиент и финансовый советник вынуждены вручную искать путь решения.</p>
+    </section>
+
+    <section class="section reveal" id="model" aria-labelledby="model-title">
+      <div class="section-kicker"><span>02</span> Что создаём</div>
+      <h2 class="section-title" id="model-title">Из ручного режима — в управляемый процесс</h2>
+
+      <div class="model-layout">
+        <aside class="model-summary">
+          <strong>Один кейс. Один ответственный. Одна история решения.</strong>
+          <p>Клиент быстрее получает ответ с управляемым уровнем качества, а финансовому советнику не приходится вручную
+            собирать решение по компании.</p>
+        </aside>
+
+        <ol class="model-list">
+          <li class="model-item">
+            <div>
+              <h3>Единое окно и единая очередь</h3>
+              <p>Обращение из подключённого канала регистрируется как единый кейс с историей и статусом.</p>
+            </div>
+          </li>
+          <li class="model-item">
+            <div>
+              <h3>Ответственный за обращение</h3>
+              <p>Владелец ведёт кейс до закрытия, координирует участников и сохраняет коммуникацию с клиентом.</p>
+            </div>
+          </li>
+          <li class="model-item">
+            <div>
+              <h3>Контроль качества обслуживания</h3>
+              <p>Повторяющиеся проблемы становятся основанием для системного улучшения процесса.</p>
+            </div>
+          </li>
+          <li class="model-item">
+            <div>
+              <h3>Больше решений с первого контакта</h3>
+              <p>Типовые вопросы закрываются на первой линии с помощью базы знаний и готовых сценариев.</p>
+            </div>
+          </li>
+          <li class="model-item">
+            <div>
+              <h3>Единая статистика по сервису</h3>
+              <p>Причины, каналы, сроки и результаты формируют основу для управленческих решений.</p>
+            </div>
+          </li>
+          <li class="model-item">
+            <div>
+              <h3>Финансовый советник включён в процесс</h3>
+              <p>ФС передаёт сервисный вопрос в единый контур, получает информацию о решении и остаётся в клиентском
+                контексте.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section reveal" id="process" aria-labelledby="process-title">
+      <div class="section-kicker"><span>03</span> Как работает процесс</div>
+      <h2 class="section-title" id="process-title">ЕКЦ ведёт обращение по единому маршруту</h2>
+      <p class="section-intro">Даже если для решения нужна экспертиза нескольких подразделений, ответственность за
+        движение кейса и коммуникацию сохраняется в ЕКЦ.</p>
+
+      <div class="process-wrap">
+        <ol class="process">
+          <li class="process-step">
+            <span class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 5.5h16v10H8l-4 3v-13Z" />
+                <path d="M8 9h8M8 12h5" />
+              </svg>
+            </span>
+            <div class="step-copy">
+              <span class="step-number">Шаг 1</span>
+              <h3>Поступление</h3>
+              <p>Клиент обращается через подключённый канал либо ФС передаёт сервисный вопрос.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="5" y="3" width="14" height="18" rx="2" />
+                <path d="M9 3.5h6V7H9zM8.5 11h7M8.5 15h5" />
+              </svg>
+            </span>
+            <div class="step-copy">
+              <span class="step-number">Шаг 2</span>
+              <h3>Регистрация</h3>
+              <p>ЕКЦ создаёт кейс в CRM, классифицирует обращение и появляется ответственный за обращение сотрудник.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m5 12 4 4L19 6" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+            </span>
+            <div class="step-copy">
+              <span class="step-number">Шаг 3</span>
+              <h3>Решение в ЕКЦ</h3>
+              <p>Типовой вопрос решается на первой линии с помощью базы знаний и сценариев.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="6" cy="7" r="2.5" />
+                <circle cx="18" cy="7" r="2.5" />
+                <circle cx="12" cy="17" r="2.5" />
+                <path d="m8 8.5 2.8 6M16 8.5l-2.8 6" />
+              </svg>
+            </span>
+            <div class="step-copy">
+              <span class="step-number">Шаг 4</span>
+              <h3>Профильная линия</h3>
+              <p>ЕКЦ привлекает экспертов второй или третьей линии и контролирует возврат ответа.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M20 11a8 8 0 1 1-3-6.2" />
+                <path d="M20 4v7h-7" />
+                <path d="m8.5 12 2.2 2.2 4.8-5" />
+              </svg>
+            </span>
+            <div class="step-copy">
+              <span class="step-number">Шаг 5</span>
+              <h3>Ответ и закрытие</h3>
+              <p>Клиент получает ответ, история фиксируется, ФС получает информацию по кейсу, накапливается статистика.
+              </p>
+            </div>
+          </li>
+        </ol>
+        <p class="process-takeaway">Несколько подразделений могут участвовать в решении, но для клиента и ФС это
+          остаётся одним обращением с одним ответственным.</p>
+      </div>
+    </section>
+
+    <section class="status-section reveal" id="status" aria-labelledby="status-title">
+      <div class="section-kicker"><span>04</span> Первый рабочий контур</div>
+      <h2 class="section-title" id="status-title">ЕСМ уже работает на реальных обращениях</h2>
+
+      <div class="status-grid">
+        <div class="result">
+          <strong>74%</strong>
+          <p>обращений первой рабочей недели решены самостоятельно на первой линии: 20 из 27</p>
+        </div>
+
+        <dl class="status-facts">
+          <div class="status-fact">
+            <dt>Цифровые каналы</dt>
+            <dd>ЕКЦ принимает обращения из мобильного приложения и личного кабинета.</dd>
+          </div>
+          <div class="status-fact">
+            <dt>Единый учёт</dt>
+            <dd>Обращения подключённого контура регистрируются в CRM.</dd>
+          </div>
+          <div class="status-fact">
+            <dt>Команда</dt>
+            <dd>В штат выведены 2 из 3 сотрудников стартового состава.</dd>
+          </div>
+          <div class="status-fact">
+            <dt>База знаний</dt>
+            <dd>Стартовая база пополняется на основе реальных кейсов.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section reveal" id="channels" aria-labelledby="channels-title">
+      <div class="section-kicker"><span>05</span> Расширение охвата</div>
+      <h2 class="section-title" id="channels-title">Каналы подключаются поэтапно</h2>
+      <p class="section-intro">Расширяем единый контур без резкого изменения всех процессов сразу.</p>
+
+      <div class="stages">
+        <article class="stage stage-now">
+          <span class="stage-label">Работает сейчас</span>
+          <h3>Цифровые обращения</h3>
+          <ul>
+            <li>Чат в мобильном приложении и личном кабинете.</li>
+            <li>Регистрация и обработка обращений в CRM силами ЕКЦ.</li>
+          </ul>
+        </article>
+
+        <article class="stage stage-next">
+          <span class="stage-label">Подключаем</span>
+          <h3>Новые входы</h3>
+          <ul>
+            <li>Обращения на согласованные электронные адреса.</li>
+            <li>Телефония и обновлённые сценарии IVR после тестирования.</li>
+          </ul>
+        </article>
+
+        <article class="stage stage-fs">
+          <span class="stage-label">Расширяем для ФС</span>
+          <h3>Приём от советников</h3>
+          <ul>
+            <li>Ограниченный приём обращений уже начат в пилотном режиме.</li>
+            <li>Порядок, тематики, канал и инструкция придут отдельной коммуникацией.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta reveal" aria-labelledby="cta-title">
+      <div>
+        <div class="section-kicker"><span>06</span> Следующий шаг</div>
+        <h2 id="cta-title">Отдельная коммуникация для финансовых советников</h2>
+      </div>
+      <ol class="cta-list">
+        <li>Какие обращения следует направлять в ЕКЦ</li>
+        <li>Через какой канал передавать обращение</li>
+        <li>Какие данные необходимо указывать</li>
+        <li>Как отслеживать статус решения</li>
+        <li>Куда обращаться по вопросам нового процесса</li>
+      </ol>
+      <p class="notice">До получения инструкции действующий порядок работы сохраняется.</p>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>СОЛИД Инвестиции · Единая сервисная модель</span>
+    <span>Материал для финансовых советников</span>
+  </footer>
+
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const items = document.querySelectorAll('.reveal');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        items.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+      items.forEach((item) => observer.observe(item));
+    })();
+  </script>
+</body>
+
+</html>
