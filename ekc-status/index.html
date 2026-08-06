@@ -1281,26 +1281,6 @@
       font-weight: 700;
     }
 
-    .answer-total {
-      display: flex;
-      align-items: baseline;
-      gap: 7px;
-      margin-top: 12px;
-      color: rgba(255, 250, 245, .64);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .answer-total strong {
-      color: #fffaf5;
-      font-size: 18px;
-      font-weight: 850;
-    }
-
-    .answer-total[hidden] {
-      display: none;
-    }
-
     .answer-share {
       margin-top: auto;
     }
@@ -2475,10 +2455,6 @@
           <div class="answer-summary">
             <span class="answer-label">Всего ответов</span>
             <div class="answer-value" id="answer-value">49<span>за 5 дней</span></div>
-            <div class="answer-total" id="processed-total" hidden>
-              <span>Всего обработано (с учётом перевода на 2-у линию)</span>
-              <strong id="processed-total-value">231</strong>
-            </div>
             <div class="answer-share">
               <div class="answer-share-line">
                 <span>Самостоятельно</span>
@@ -2807,7 +2783,7 @@
             { label: "24–31 июля", answered: 49, self: 44 }
           ],
           tableDays: ["3–9 июля", "10–16 июля", "17–23 июля", "24–31 июля"],
-          totals: { answered: 192, self: 171, secondLine: 21, escalated: 39, vip: 4, knowledge: 22, processed: 231 },
+          totals: { answered: 192, self: 171, secondLine: 21, escalated: 39, vip: 4, knowledge: 22 },
           rows: [
             ["Отвечено", 27, 62, 54, 49, 192],
             ["Отвечено самостоятельно", 20, 57, 50, 44, 171],
@@ -2907,8 +2883,6 @@
         title: document.getElementById("statistics-title"),
         period: document.getElementById("selected-week-period"),
         answerValue: document.getElementById("answer-value"),
-        processedTotal: document.getElementById("processed-total"),
-        processedTotalValue: document.getElementById("processed-total-value"),
         selfSummary: document.getElementById("self-answer-summary"),
         selfTrack: document.getElementById("self-answer-track"),
         selfFill: document.getElementById("self-answer-fill"),
@@ -2963,11 +2937,6 @@
         elements.title.textContent = week.title ?? `Результаты недели ${week.label}`;
         elements.period.textContent = week.period;
         elements.answerValue.innerHTML = `${week.totals.answered}<span>за ${week.observedDays} ${week.observedDays === 4 ? "дня" : "дней"}</span>`;
-        const processedTotal = week.totals.processed;
-        elements.processedTotal.hidden = processedTotal == null;
-        if (processedTotal != null) {
-          elements.processedTotalValue.textContent = processedTotal;
-        }
         elements.selfSummary.textContent = `${week.totals.self} · ${selfShare}%`;
         elements.selfTrack.setAttribute("aria-label", `${selfShare} процентов ответов даны самостоятельно`);
         elements.selfFill.style.width = `${selfShare}%`;
