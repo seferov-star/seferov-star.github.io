@@ -152,7 +152,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
               <circle cx="32" cy="19" r="2" fill="#10B981" />
             </svg>
             <div className="text-xs tracking-wider text-[#B8B2A6] font-mono">
-              <span>АО ИФК «СОЛИД»</span>
+              <span>Учебный практикум</span>
               <span className="mx-2 text-[#D4AF37]">·</span>
               <span>РЕДАКЦИЯ № 27 С 29.09.2026</span>
               <span className="mx-2 text-[#D4AF37]">·</span>
@@ -164,12 +164,12 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
             className="font-['Fraunces',serif] font-bold text-[#F5F2EB] tracking-tight leading-[1.06] mb-5"
             style={{ fontSize: 'clamp(2.35rem, 4.2vw, 3.85rem)', textWrap: 'balance' }}
           >
-            Волк с Солид-Стрит: Тарифный Классификатор
+            Практикум по тарифному классификатору
           </h1>
 
           <p className="text-[#C7C2B6] text-base lg:text-lg leading-relaxed max-w-[62ch] mb-8">
             Добро пожаловать в торговый зал. Изучите 74 страницы официального Тарифного классификатора
-            АО ИФК «Солид» (редакция № 27) через 4 игровых режима: от холодного обзвона по 6 глубоким
+            (редакция № 27) через 4 игровых режима: от холодного обзвона по 6 глубоким
             тематикам и симулятора клиентских сделок до сертификационного экзамена управляющего партнера.
           </p>
 
@@ -406,7 +406,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
         </div>
         <div className="flex items-center gap-2">
           <Award className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>База знаний: Тарифный классификатор АО ИФК «Солид» (Редакция № 27)</span>
+          <span>База знаний: Тарифный классификатор (редакция № 27)</span>
         </div>
       </footer>
     </div>

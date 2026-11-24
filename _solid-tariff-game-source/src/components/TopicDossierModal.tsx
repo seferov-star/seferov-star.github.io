@@ -70,7 +70,7 @@ export const TopicDossierModal: React.FC<TopicDossierModalProps> = ({
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#D4AF37]/25 bg-[#0C140F]">
           <div>
             <div className="text-xs font-mono text-[#D4AF37]">
-              ДОСЬЕ УОЛЛ-СТРИТ · ТАРИФНЫЙ КЛАССИФИКАТОР АО ИФК «СОЛИД» (РЕДАКЦИЯ № 27)
+              ДОСЬЕ ТАРИФНЫЙ КЛАССИФИКАТОР (РЕДАКЦИЯ № 27)
             </div>
             <h2 className="text-xl font-['Fraunces',serif] font-bold">
               Конспект разделов и Калькулятор брокерских комиссий
@@ -238,7 +238,7 @@ export const TopicDossierModal: React.FC<TopicDossierModalProps> = ({
 
                 <div>
                   <label htmlFor="calc-tariff-select" className="block text-xs text-[#C7C2B6] mb-1">
-                    Тарифный план АО ИФК «Солид»:
+                    Тарифный план:
                   </label>
                   <select
                     id="calc-tariff-select"

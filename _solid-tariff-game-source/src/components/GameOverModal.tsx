@@ -36,8 +36,8 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
           <div>
             <div className="text-xs font-mono text-[#D4AF37] tracking-wider">
               {isExam
-                ? 'ПРОТОКОЛ АТТЕСТАЦИОННОЙ КОМИССИИ АО ИФК «СОЛИД» · РЕДАКЦИЯ № 27'
-                : 'ОТЧЕТ ТОРГОВОГО ДЕСКА СОЛИД-СТРИТ'}
+                ? 'РЕЗУЛЬТАТ УЧЕБНОГО ЭКЗАМЕНА · РЕДАКЦИЯ № 27'
+                : 'ОТЧЁТ ПО ПРАКТИКЕ'}
             </div>
             <h2 className="text-2xl lg:text-3xl font-['Fraunces',serif] font-bold mt-1">
               {result.passed
@@ -114,7 +114,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
             </div>
             <p className="text-sm text-[#F5F2EB] leading-relaxed">
               Настоящим подтверждается, что брокер <strong>{profile.name}</strong> успешно сдал
-              квалификационный экзамен по Тарифному классификатору АО ИФК «Солид» (редакция № 27, вступает
+              квалификационный экзамен по тарифному классификатору (редакция № 27, вступает
               в силу с 29.09.2026) с результатом <strong>{result.scorePercent}%</strong> (
               {result.correctAnswers} из {result.totalQuestions}).
             </p>
