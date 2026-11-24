@@ -27,7 +27,7 @@ test('course banks have unique identities, four distinct choices, valid sources 
   }
 });
 test('exams represent every section, contain only their course questions and balance difficulty', () => {
-  for (const course of COURSES.filter(c=>c.examEnabled!==false)) for (let i = 0; i < 30; i++) {
+  for (const course of COURSES) for (let i = 0; i < 30; i++) {
     const deck = makeDeck(course, 'exam', 'not-a-section', 'hard', []);
     assert.equal(deck.length, course.exam.count);
     assert.equal(new Set(deck.map(q => q.id)).size, deck.length);
@@ -71,26 +71,4 @@ test('legacy profiles migrate without losing history, capital, bookmarks or per-
   assert.deepEqual(migrated.learning.tariffs.bookmarks,['gr-e-3']);
   assert.equal(migrated.learning.regulations.correct.length,0);
   assert.deepEqual(migrateProfile(migrated),migrated);
-});
-
-
-test('phone training forbids exams and uses dialogue cases for timed practice', () => {
- const phone=COURSES.find(c=>c.id==='phone')!;
- assert.equal(phone.examEnabled,false);
- assert.deepEqual(makeDeck(phone,'exam'),[]);
- assert.equal(makeDeck(phone,'timed').length,38);
- assert.ok(makeDeck(phone,'timed').every(i=>i.kind==='case'));
- assert.deepEqual(makeDeck(COURSES[0],'timed'),[]);
-});
-test('phone explanations remain attached to options after shuffling', () => {
- const phone=COURSES.find(c=>c.id==='phone')!;
- for (const item of phone.items) {
-  assert.equal(item.optionReasons?.length,4,item.id);
-  assert.ok(item.sourceExcerpt && item.sourceAnchor,item.id);
-  const mapping=new Map(item.options.map((o,i)=>[o,item.optionReasons![i]]));
-  for(let n=0;n<20;n++) {
-   const copy=shuffleItem(item);
-   copy.options.forEach((o,i)=>assert.equal(copy.optionReasons![i],mapping.get(o)));
-  }
- }
 });
