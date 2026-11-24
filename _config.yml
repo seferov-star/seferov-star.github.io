@@ -1,0 +1,11 @@
+# These directories remain in the repository and can be republished by removing them from this list.
+exclude:
+  - cf-openproject
+  - esm-roadmap-ekc
+  - crm-strategy
+  - ekc-status
+  - crm-strategy-3versions
+  - esm-for-fs
+  - site-v2PG
+  - roadmap-gantt
+  - mobile-ceo-landing
